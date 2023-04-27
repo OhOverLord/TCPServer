@@ -32,7 +32,7 @@ class Robot:
 
     def is_barrier(self, flag):
         if not flag:
-            print_color(f"sheeeeeeesh: {self.cnt}", "red")
+            print_color(f"I think I crashed....", "red")
             if self.cnt == 0:
                 self.cnt += 1
                 return SERVER_TURN_RIGHT
@@ -42,13 +42,13 @@ class Robot:
             elif self.cnt == 2:
                 self.cnt = 0
                 self.barrier = False
-                print_color(f"shiiiiiit meeen: {self.barrier}", "red")
+                print_color(f"Phew, it's all right! I walked around the obstacle", "green")
                 self.direction = -1
                 self.p_x = None
                 self.p_y = None
                 return SERVER_TURN_LEFT
         else:
-            print_color(f"sheeeeeeesh: {self.cnt}", "red")
+            print_color(f"I think I crashed....", "red")
             if self.cnt == 0:
                 self.cnt += 1
                 return SERVER_TURN_LEFT
@@ -67,7 +67,7 @@ class Robot:
             elif self.cnt == 5:
                 self.cnt = 0
                 self.barrier = False
-                print_color(f"shiiiiiit meeen: {self.barrier}", "red")
+                print_color(f"Phew, it's all right! I walked around the obstacle", "green")
                 self.direction = -1
                 self.p_x = None
                 self.p_y = None
@@ -96,8 +96,6 @@ class Robot:
 
         if self.barrier:
             return self.is_barrier(self.flag)
-
-        print_color(f"{self.direction}    x : {x}; y : {y}'; P_X : {self.p_x}; P_Y {self.p_y}", "yellow")
 
         if self.direction == RIGHT:
             if x == self.p_x and y == self.p_y:

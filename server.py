@@ -30,7 +30,7 @@ class Server:
             print_color('waiting for a connection', 'green')
             conn, client_address = m_socket.accept()
             conn.settimeout(1)
-            t1 = Thread(target=self.communicate, args=(m_socket, conn, client_address))
+            t1 = Thread(target=self.communicate, args=(conn, client_address))
             t1.start()
             self.list_of_threads.append(t1)
 
@@ -58,7 +58,7 @@ class Server:
             return True
         return False
 
-    def communicate(self, m_socket, conn, client_address):
+    def communicate(self, conn, client_address):
         stage = 0
         id_key = 0
         server_hash = 0
@@ -86,8 +86,6 @@ class Server:
                     data = [part for part in tmp.split('\a\b') if part]
                     tmp = ''
                     for part in data:
-                        print_color(f"{part}", "blue")
-
                         if part == "RECHARGING":
                             conn.settimeout(5)
                             recharge = True
@@ -102,7 +100,6 @@ class Server:
                             conn.sendall(SERVER_LOGIC_ERROR)
                             conn.close()
                             break
-                        print(f'Received {part}')
                         if stage == 0:
                             name = part
                             if len(name) > 18:
@@ -135,7 +132,6 @@ class Server:
                             conn.sendall(SERVER_MOVE)
                             stage += 1
                         elif stage == 3:
-                            print(part)
                             if part[len(part) - 1] == ' ':
                                 conn.sendall(SERVER_SYNTAX_ERROR)
                                 break
@@ -158,7 +154,7 @@ class Server:
                             conn.sendall(SERVER_LOGOUT)
                             conn.close()
                             break
-        except Exception as e:
-            print(e)
+        except:
+            print_color("TIMED OUT", "red")
         finally:
             conn.close()
