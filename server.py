@@ -66,10 +66,20 @@ class Server:
         name = ''
         robot = Robot()
         tmp = ''
+        recharge = False
         try:
             print_color(f'connection from {client_address}', "yellow")
             while True:
                 tmp += str(conn.recv(1000).decode('utf-8'))
+                if stage == 0 and (tmp.find('\a\b') > 18 or tmp.find('\a') > 18 or tmp.find('\b') > 18):
+                    conn.sendall(SERVER_SYNTAX_ERROR)
+                    break
+                if stage == 4 and (tmp.find('\a\b') > 98 or tmp.find('\a') > 98 or tmp.find('\b') > 98):
+                    conn.sendall(SERVER_SYNTAX_ERROR)
+                    break
+                if stage == 3 and '\a\b' not in tmp and len(tmp) > 12:
+                    conn.sendall(SERVER_SYNTAX_ERROR)
+                    break
                 if '\a\b' not in tmp:
                     continue
                 elif tmp.count('\a\b') >= 1 and tmp[len(tmp) - 2] == '\a' and tmp[len(tmp) - 1] == '\b':
@@ -131,6 +141,7 @@ class Server:
                             print_color(f"Tajný vzkaz: {part}", "red")
                             conn.sendall(SERVER_LOGOUT)
                             conn.close()
+                            break
         except Exception as e:
             print(e)
         finally:
