@@ -7,7 +7,7 @@ from config import print_color
 def main():
     server = Server()
     m_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_address = ('localhost', 4000)
+    server_address = ('localhost', 3999)
     print_color(f'start server up on {server_address[0]} port {server_address[1]}', 'yellow')
     m_socket.bind(server_address)
 

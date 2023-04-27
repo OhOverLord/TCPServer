@@ -64,13 +64,7 @@ class Robot:
             elif self.cnt == 4:
                 self.cnt += 1
                 return SERVER_MOVE
-            elif self.cnt == 4:
-                self.cnt += 1
-                return SERVER_TURN_RIGHT
             elif self.cnt == 5:
-                self.cnt += 1
-                return SERVER_MOVE
-            elif self.cnt == 6:
                 self.cnt = 0
                 self.barrier = False
                 print_color(f"shiiiiiit meeen: {self.barrier}", "red")
@@ -78,7 +72,38 @@ class Robot:
                 self.p_x = None
                 self.p_y = None
                 self.flag = False
-                return SERVER_TURN_LEFT
+                return SERVER_TURN_RIGHT
+            # print_color(f"sheeeeeeesh: {self.cnt}", "red")
+            # if self.cnt == 0:
+            #     self.cnt += 1
+            #     return SERVER_TURN_LEFT
+            # elif self.cnt == 1:
+            #     self.cnt += 1
+            #     return SERVER_MOVE
+            # elif self.cnt == 2:
+            #     self.cnt += 1
+            #     return SERVER_TURN_RIGHT
+            # elif self.cnt == 3:
+            #     self.cnt += 1
+            #     return SERVER_MOVE
+            # elif self.cnt == 4:
+            #     self.cnt += 1
+            #     return SERVER_MOVE
+            # elif self.cnt == 4:
+            #     self.cnt += 1
+            #     return SERVER_TURN_RIGHT
+            # elif self.cnt == 5:
+            #     self.cnt += 1
+            #     return SERVER_MOVE
+            # elif self.cnt == 6:
+            #     self.cnt = 0
+            #     self.barrier = False
+            #     print_color(f"shiiiiiit meeen: {self.barrier}", "red")
+            #     self.direction = -1
+            #     self.p_x = None
+            #     self.p_y = None
+            #     self.flag = False
+            #     return SERVER_TURN_LEFT
 
     def move(self, x, y):
         if x == 0 and y == 0:
