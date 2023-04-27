@@ -86,6 +86,22 @@ class Server:
                     data = [part for part in tmp.split('\a\b') if part]
                     tmp = ''
                     for part in data:
+                        print_color(f"{part}", "blue")
+
+                        if part == "RECHARGING":
+                            conn.settimeout(5)
+                            recharge = True
+                            continue
+
+                        if part == "FULL POWER":
+                            conn.settimeout(1)
+                            recharge = False
+                            continue
+
+                        if recharge:
+                            conn.sendall(SERVER_LOGIC_ERROR)
+                            conn.close()
+                            break
                         print(f'Received {part}')
                         if stage == 0:
                             name = part
