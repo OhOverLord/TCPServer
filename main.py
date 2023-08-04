@@ -1,4 +1,3 @@
-import sys
 import socket
 from server import Server
 from config import print_color
